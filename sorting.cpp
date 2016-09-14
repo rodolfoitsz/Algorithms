@@ -7,33 +7,47 @@ using  namespace std;
 
 
 class SortingAlgorithms{
+
+private: 
+int sizeArray;
 	
  public:
- 	int * fillArray(int *);
- 	void printArray(int *);
- 	void insertionSort(int *);
- 	
+ 	int * fillArray(int *,int);
+ 	void printArray(int *,int );
+ 	void insertion(int *,int);
+ 	void bubble(int *,int );
+ 	void selection(int *,int);
+    int getSizeArray(int );
      
 };
 
- int * SortingAlgorithms:: fillArray(int * arrayNumbers ){
+int SortingAlgorithms::getSizeArray(int number){
+
+   sizeArray=number;
+   return sizeArray;
+
+   }
+
+
+
+ int * SortingAlgorithms:: fillArray(int * arrayNumbers ,int sizeArray){
 
     srand ( time(NULL) ); 
-    for(int i;i<10;i++){
+    for(int i;i<sizeArray;i++){
 
        arrayNumbers[i]=rand() % 100;
      }
      
-     printArray(arrayNumbers);
+     printArray(arrayNumbers,sizeArray);
      
      return arrayNumbers;
              
 }
 
 
-void SortingAlgorithms::printArray(int * arrayNumbers){
+void SortingAlgorithms::printArray(int * arrayNumbers, int sizeArray){
 
- for(int i;i<10;i++){
+ for(int i;i<sizeArray;i++){
 
       cout<<arrayNumbers[i]<<",";
      }
@@ -43,24 +57,88 @@ void SortingAlgorithms::printArray(int * arrayNumbers){
 }
 
 
- void SortingAlgorithms::insertionSort(int *arrayNumbers){
+ void SortingAlgorithms::insertion(int *arrayNumbers,int sizeArray){
 
-printArray(arrayNumbers);
+int temp,j; 
 
+for(int i=1; i< sizeArray;i++){
+	temp=arrayNumbers[i]; //temp almacena el elemento a comparar con los anteriores
+	 j=i-1;
+	  while ((j >= 0) && (temp < arrayNumbers[j])){ //Mientras no sea el fin de la lista y temp sea menor con uno de los elementos anteriores, ir desplazando
+    
+	  arrayNumbers[j + 1] =arrayNumbers[j];      
+      j--; 
+	  
+	  }
+      arrayNumbers[j+1]=temp;   //Colocar temp en la posición del último elemento desplazado.   
+    }
+    
+    
+    printArray(arrayNumbers,sizeArray);
+    
 }
 
 
 
+void SortingAlgorithms::bubble( int * arrayNumbers,int sizeArray) {
+
+ int temp;
+
+  for(int i =0;i<sizeArray-1;i++){
+
+    for(int j =0;j<sizeArray-1;j++){
+       
+         if(arrayNumbers[j]>arrayNumbers[j+1]){
+	      temp=arrayNumbers[j];
+	       arrayNumbers[j]=arrayNumbers[j+1];
+	       arrayNumbers[j+1]=temp;
+	      }
+	   }   
+    } 
+    
+    printArray(arrayNumbers,sizeArray);
+
+   }
+   
+   
+   void SortingAlgorithms::selection(int *arrayNumbers,int sizeArray){
+   	
+   	int minIndex;
+   	int temp;
+   	
+   	for (int i =0 ;i<sizeArray;i++){	
+   		minIndex=i; 
+	   for(int j=i+1;j<sizeArray;j++){
+          
+		    if(arrayNumbers[j]<arrayNumbers[minIndex]){
+		     minIndex=j;
+			}
+		  }
+	   if(minIndex!=i){	
+	   	temp=arrayNumbers[minIndex] ;
+	      arrayNumbers[minIndex]=arrayNumbers[i];  
+	    arrayNumbers[i]=temp;
+		}
+	}	
+	
+	printArray(arrayNumbers,sizeArray);     
+	   
+ }
+	   
+	
+	   
 
 int main (){
 
 
-int numbers [10];
 
 SortingAlgorithms classObject;
+int sizeArray=classObject.getSizeArray(10);
 
-classObject.fillArray(numbers);
-classObject.insertionSort(numbers);
+int numbers [sizeArray];
+
+classObject.fillArray(numbers,sizeArray);
+classObject.selection(numbers,sizeArray);
 
 return 0;
 
