@@ -17,6 +17,7 @@ int sizeArray;
  	void insertion(int *,int);
  	void bubble(int *,int );
  	void selection(int *,int);
+ 	void shell(int *,int);
     int getSizeArray(int );
      
 };
@@ -125,7 +126,27 @@ void SortingAlgorithms::bubble( int * arrayNumbers,int sizeArray) {
 	   
  }
 	   
-	
+ void SortingAlgorithms::shell(int *arrayNumbers,int sizeArray){
+ 	
+  int salto, aux, i;
+   int cambios;
+   for(salto=sizeArray/2; salto!=0; salto/=2){
+           cambios=1;
+           while(cambios){ // Mientras se intercambie algún elemento
+                       cambios=0;
+                       for(i=salto; i< sizeArray; i++) // se da una pasada
+                               if(arrayNumbers[i-salto]>arrayNumbers[i]){ // y si están desordenados
+                                     aux=arrayNumbers[i]; // se reordenan
+                                     arrayNumbers[i]=arrayNumbers[i-salto];
+                                     arrayNumbers[i-salto]=aux;
+                                     cambios=1; // y se marca como cambio.
+                               }
+                        }
+            }
+       	printArray(arrayNumbers,sizeArray);          
+            
+            
+ }	
 	   
 
 int main (){
@@ -138,7 +159,7 @@ int sizeArray=classObject.getSizeArray(10);
 int numbers [sizeArray];
 
 classObject.fillArray(numbers,sizeArray);
-classObject.selection(numbers,sizeArray);
+classObject.shell(numbers,sizeArray);
 
 return 0;
 
