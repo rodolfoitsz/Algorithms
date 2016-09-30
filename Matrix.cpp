@@ -4,8 +4,8 @@
 
 using namespace std;
 
-const int ROWS = 5;
-const int COLS = 5;
+const int ROWS = 3;
+const int COLS = 3;
 	
 
 
@@ -13,9 +13,9 @@ class Matrix{
 
 	public:
 
-    int mat1[5][5];
-	int mat2[5][5];
-    int matR[5][5];
+    int mat1[ROWS][COLS];
+	int mat2[ROWS][COLS];
+    int matR[ROWS][COLS];
     
 	Matrix();
     
@@ -42,7 +42,18 @@ class Matrix{
 
 void Matrix::multiply(int mat1[ROWS][COLS],int mat2[ROWS][COLS]){
 	
-	 
+	
+	 for(int i=0;i<ROWS;i++){
+     	for(int j=0;j<COLS;j++){		
+     		int sum =0;
+     		for(int k=0;k<COLS;k++){
+			sum+= mat1[i][k]* mat2[k][j];
+			 }
+			 	 matR[i][j]=sum;
+		 } 
+     }
+	
+	 printMatrix (matR);
 	
 }
 
@@ -67,6 +78,8 @@ int main (void){
    
    object.printMatrix(object.mat1);
    object.printMatrix(object.mat2);
+   object.multiply(object.mat1,object.mat2);
+   
 	
 return 0;
    
